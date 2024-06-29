@@ -17,9 +17,9 @@ public class ProductosController {
     @Autowired
     private ProductoRepository repository;
 
-    @GetMapping("all")
-    public List<String> productos(){
-        return Arrays.asList("tornillos, tuercas, clavos");
+    @GetMapping("/product/{id}")
+    public ProductoEntity productos(@PathVariable Integer id){
+        return this.repository.findById(id).get();
     }
 
     @PostMapping("/save/product")
@@ -29,9 +29,11 @@ public class ProductosController {
         entity.setSku(request.getSku());
         entity.setCantidad(request.getCantidad());
 
-        repository.save(entity);
+        this.repository.save(entity);
 
-        return ResponseEntity.ok("todo bien");
+        return ResponseEntity.ok("Se guardo de manera correcta");
     }
+
+
 }
 
